@@ -1,0 +1,24 @@
+<Configuration>
+	<Add OfficeClientEdition="64" Channel="Current">
+		<Product ID="O365HomePremRetail">
+			<Language ID="zh-cn" />
+			<ExcludeApp ID="Groove" />
+			<ExcludeApp ID="Lync" />
+		</Product>
+		<Product ID="ProofingTools">
+			<Language ID="zh-cn" />
+			<Language ID="en-us" />
+			<ExcludeApp ID="Groove" />
+			<ExcludeApp ID="Lync" />
+		</Product>
+	</Add>
+  <Property Name="SharedComputerLicensing" Value="0" />
+  <Property Name="PinIconsToTaskbar" Value="TRUE" />
+  <Property Name="SCLCacheOverride" Value="0" />
+  <Property Name="AUTOACTIVATE" Value="1" />
+  <Property Name="FORCEAPPSHUTDOWN" Value="FALSE" />
+  <Property Name="DeviceBasedLicensing" Value="0" />
+  <Updates Enabled="TRUE" />
+  <Display Level="None" AcceptEULA="TRUE" />
+  <Logging Level="Off" />
+</Configuration>

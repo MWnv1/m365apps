@@ -1,0 +1,12 @@
+<Configuration>
+	<Remove All="FALSE">
+		<Product ID="VisioProRetail" />
+		<Product ID="ProjectProRetail" />
+		<Product ID="VisioPro2024Volume" />
+		<Product ID="ProjectPro2024Volume" />
+		<Product ID="VisioPro2021Volume" />
+		<Product ID="ProjectPro2021Volume" />
+	</Remove>
+	<Display Level="None" AcceptEULA="TRUE" />
+	<Logging Level="Off" />
+</Configuration>

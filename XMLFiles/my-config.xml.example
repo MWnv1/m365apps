@@ -1,0 +1,18 @@
+<!-- 自定义配置示例：复制本文件为 my-config.xml 后修改，脚本选项 8 会读取它。 -->
+<Configuration>
+	<Add OfficeClientEdition="64" Channel="Current">
+		<Product ID="O365ProPlusRetail">
+			<Language ID="zh-cn" />
+			<ExcludeApp ID="Groove" />
+			<ExcludeApp ID="Lync" />
+			<ExcludeApp ID="Access" />
+			<ExcludeApp ID="Publisher" />
+			<ExcludeApp ID="OneNote" />
+		</Product>
+	</Add>
+  <Property Name="PinIconsToTaskbar" Value="TRUE" />
+  <Property Name="FORCEAPPSHUTDOWN" Value="FALSE" />
+  <Updates Enabled="TRUE" />
+  <Display Level="None" AcceptEULA="TRUE" />
+  <Logging Level="Standard" />
+</Configuration>
