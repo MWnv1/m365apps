@@ -13,7 +13,7 @@ set "XML=XMLFiles/UninstallOffice.xml"
 if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" >nul 2>&1
 fsutil dirty query %systemdrive% >nul 2>&1 && goto :Privileges_got
 if "%~1"=="--elevated" goto :noAdmin
-cmd /u /c echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "%~0", "", "--elevated", "runas", 1 > "%temp%\getadmin.vbs"
+cmd /u /c echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "%~0", "--elevated", "", "runas", 1 > "%temp%\getadmin.vbs"
 cscript //nologo "%temp%\getadmin.vbs"
 exit /b
 
