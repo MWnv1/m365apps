@@ -1,151 +1,111 @@
-# Microsoft 365 Apps script
+# Office ODT 安装器（简体中文）
 
-A lightweight, menu-driven script that installs (or uninstalls) Microsoft 365 Apps on Windows using Microsoft's official Office Deployment Tool (ODT) and curated XML configurations.
+> 本仓库是 [ivancarlosti/m365apps](https://github.com/ivancarlosti/m365apps) 的 fork，做了简体中文与国内使用场景的改造。上游采用 MIT 许可，原版权归 ivancarlosti。
 
-<!-- buttons -->
-[![Stars](https://img.shields.io/github/stars/ivancarlosti/m365apps?label=⭐%20Stars&color=gold&style=flat)](https://github.com/ivancarlosti/m365apps/stargazers)
-[![Watchers](https://img.shields.io/github/watchers/ivancarlosti/m365apps?label=Watchers&style=flat&color=red)](https://github.com/sponsors/ivancarlosti)
-[![Forks](https://img.shields.io/github/forks/ivancarlosti/m365apps?label=Forks&style=flat&color=ff69b4)](https://github.com/sponsors/ivancarlosti)
-[![Downloads](https://img.shields.io/github/downloads/ivancarlosti/m365apps/total?label=Downloads&color=success)](https://github.com/ivancarlosti/m365apps/releases)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ivancarlosti/m365apps?label=Activity)](https://github.com/ivancarlosti/m365apps/pulse)
-[![GitHub Issues](https://img.shields.io/github/issues/ivancarlosti/m365apps?label=Issues&color=orange)](https://github.com/ivancarlosti/m365apps/issues)  
-[![License](https://img.shields.io/github/license/ivancarlosti/m365apps?label=License)](LICENSE)
-[![GitHub last commit](https://img.shields.io/github/last-commit/ivancarlosti/m365apps?label=Last%20Commit)](https://github.com/ivancarlosti/m365apps/commits)
-[![Security](https://img.shields.io/badge/Security-View%20Here-purple)](https://github.com/ivancarlosti/m365apps/security)
-[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-2.1-4baaaa)](https://github.com/ivancarlosti/m365apps?tab=coc-ov-file)
-<!-- endbuttons -->
+[![License](https://img.shields.io/github/license/MWnv1/m365apps?label=License)](LICENSE)
 
-## 📦 About
+## 这个脚本是什么
 
-`m365apps` is a self-contained Windows installer that wraps the official
-[Microsoft Office Deployment Tool (ODT)](https://learn.microsoft.com/en-us/deployoffice/overview-office-deployment-tool)
-with a friendly menu. It downloads the latest `setup.exe` straight from
-Microsoft's CDN at runtime, then drives it with one of the curated XML
-configurations under [XMLFiles/](XMLFiles/) so you can install or uninstall
-Microsoft 365 Apps (Business, Enterprise or Home, with optional Project and
-Visio) without manually crafting a configuration file.
+一个菜单式的 Windows 脚本，全程调用**微软官方 Office Deployment Tool（ODT）**来安装、卸载微软 Office。它在运行时从 Microsoft CDN 下载最新签名过的 `setup.exe`，再用仓库内的 XML 配置驱动它，因此不需要你手写或校验 XML。
 
-It also bundles a few one-click registry tweaks (OneDrive Personal sync,
-Office Insider button visibility, Office Update Channel reset) directly in
-the menu — no extra `.reg` files needed.
+## 免责声明
 
-## 🚀 Usage
+- 本脚本**不包含**任何 KMS 模拟、激活绕过、破解或密钥生成代码，也不提供任何形式的“免费激活”。
+- 安装的 Office 需要你自己持有合法授权：零售版密钥、Microsoft 365 订阅，或组织提供的批量许可（MAK / KMS）。
+- 仅建议用于你自己的设备或你有权部署的设备。
 
-1. Download the latest release (or clone this repo).
-2. Right-click [m365apps.bat](m365apps.bat) and choose **Run as administrator**.
-3. Pick an option from the menu and let the installer run.
+## 菜单
 
-The script will self-elevate via UAC if you forget the right-click step.
+**安装**
 
-## ⚙️ How the script works
+| 按键 | 内容 |
+| :-: | :--- |
+| 1 | 微软 365 商业版 + Project + Visio（简中） |
+| 2 | 微软 365 商业版（简中） |
+| 3 | 微软 365 企业版 + Project + Visio（简中） |
+| 4 | 微软 365 企业版（简中） |
+| 5 | 微软 365 家庭版（简中） |
+| 6 | Office LTSC 2024 专业增强版（简中，需批量许可） |
+| 7 | Office LTSC 2021 专业增强版（简中，需批量许可） |
+| 8 | 自定义配置（读 `XMLFiles/my-config.xml`） |
 
-[m365apps.bat](m365apps.bat) runs in four stages:
+**卸载**
 
-### 1. Elevation
-The first block checks whether the script is already running with
-administrative rights. If not, it generates a small VBScript in `%TEMP%` that
-re-launches the batch file through `ShellExecute ... "runas"`, triggering the
-UAC prompt. Once elevated, execution jumps to the `:Privileges_got` label.
+| 按键 | 内容 |
+| :-: | :--- |
+| 9 | 卸载全部 Office 产品 |
+| 0 | 仅卸载 Project / Visio |
 
-### 2. Bootstrap the Office Deployment Tool
-Instead of shipping `setup.exe` in the repository, the script downloads a
-fresh copy from Microsoft on every run:
+**工具**
 
-```
-SETUP_URL = https://officecdn.microsoft.com/pr/wsus/setup.exe
-SETUP_DIR = %TEMP%\m365apps
-SETUP_EXE = %TEMP%\m365apps\setup.exe
-```
+| 按键 | 内容 |
+| :-: | :--- |
+| A | 查看已装产品的 ID / 版本 / 位数 / 更新通道 |
+| B | 允许 OneDrive 个人版同步 |
+| C | 禁用 OneDrive 个人版同步 |
+| D | 移除 OneDrive 个人版同步策略 |
+| E | 显示 Office 预览体验按钮 |
+| F | 隐藏 Office 预览体验按钮 |
+| G | 移除 Office 预览体验策略 |
+| H | 移除 Office 更新通道策略 |
+| Q | 退出 |
 
-- The temp folder is created if missing.
-- Any leftover `setup.exe` from a previous run is removed first, so you always
-  use the latest signed binary published by Microsoft.
-- The download is performed by the built-in `curl.exe` (available on Windows
-  10 1803+ and Windows 11) with `-fSL` so failures abort the script with a
-  clear message.
+## 用法
 
-### 3. Interactive menu
-A `choice /c 1234567890ABCDEFQ` prompt presents three grouped sections:
+1. 下载本仓库（`Code` → `Download ZIP`）或直接克隆。
+2. 右键 `office-odt-cn.bat` → **以管理员身份运行**（忘了也会自动弹 UAC）。
+3. 按菜单选一项。安装前请先关掉所有 Office 程序。
 
-**Install**
+> 仅支持 Windows 10 1803 以上 / Windows 11。
 
-| Key | Action |
-| :-: | :----- |
-| 1 | Install Office Business + Project + Visio (US + BR + MX) |
-| 2 | Install Office Business (US + BR + MX) |
-| 3 | Install Office Business (Brazil only) |
-| 4 | Install Office Enterprise + Project + Visio (US + BR + MX) |
-| 5 | Install Office Enterprise (US + BR + MX) |
-| 6 | Install Office Enterprise (Brazil only) |
-| 7 | Install Office Home + Project + Visio (US + BR + MX) |
-| 8 | Install Office Home (US + BR + MX) |
-| 9 | Install Office Home (Brazil only) |
-
-**Uninstall**
-
-| Key | Action |
-| :-: | :----- |
-| 0 | Uninstall all Office packages |
-
-**Tweaks**
-
-| Key | Action | Registry change |
-| :-: | :----- | :-------------- |
-| A | Allow OneDrive Personal sync          | set `HKCU\Software\Microsoft\OneDrive\DisablePersonalSync = 0` |
-| B | Block OneDrive Personal sync          | set `HKCU\Software\Microsoft\OneDrive\DisablePersonalSync = 1` |
-| C | Remove OneDrive Personal sync policy  | delete `HKCU\Software\Microsoft\OneDrive\DisablePersonalSync` |
-| D | Show Office Insider button            | set `HKCU\Software\Policies\Microsoft\office\16.0\common\insiderslabbehavior = 2` |
-| E | Hide Office Insider button            | set `HKCU\Software\Policies\Microsoft\office\16.0\common\insiderslabbehavior = 0` |
-| F | Remove Office Insider button policy   | delete `HKCU\Software\Policies\Microsoft\office\16.0\common\insiderslabbehavior` |
-| G | Remove Office Update Channel policy   | delete `HKLM\SOFTWARE\Policies\Microsoft\office\16.0\common\officeupdate\updatebranch` |
-| Q | Quit | — |
-
-Install/Uninstall selections set `DESC` (label shown to the user) and `XML`
-(path to the matching configuration under [XMLFiles/](XMLFiles/)) and jump
-to the `:runOffice` label that invokes:
+## 目录结构
 
 ```
-"%SETUP_EXE%" /configure "%XML%"
+office-odt-cn.bat            中文交互入口
+m365apps.bat                 上游原版入口（保留未动）
+XMLFiles/
+  InstallOffice-Business-CN.xml
+  InstallOfficeProjectVisio-Business-CN.xml
+  InstallOffice-Enterprise-CN.xml
+  InstallOfficeProjectVisio-Enterprise-CN.xml
+  InstallOffice-Home-CN.xml
+  InstallOffice-LTSC2024-CN.xml
+  InstallOffice-LTSC2021-CN.xml
+  UninstallOffice.xml
+  UninstallProjectVisio.xml
+  my-config.xml.example
+README.md                    中文说明
+README.en.md                 英文说明 / 上游文档入口
+LICENSE                      MIT
 ```
 
-This is the standard ODT command — `setup.exe` reads the XML, contacts
-Microsoft's CDN and installs/uninstalls the requested products and languages.
+## 与上游的差异
 
-Tweaks apply their registry change in-place via `reg add` / `reg delete` and
-return to the menu so you can chain several tweaks in one session.
+1. **新增中文菜单** `office-odt-cn.bat`，上游 `m365apps.bat` 原样保留，可随时对照。
+2. **新增 zh-CN 配置**，并额外提供 **Office LTSC 2024 / 2021** 两条通道（`PerpetualVL2024` / `PerpetualVL2021`）。
+3. **新增“查看已安装 Office”选项**，直接读 `ClickToRun\Configuration` 注册表，不动其他配置。
+4. **下载鲁棒性**：`curl.exe` 不存在时自动回退到 PowerShell 下载；可用环境变量 `ODT_SETUP_URL` 覆盖下载源。
+5. **修掉上游的菜单匹配隐患**：原版的 `if "%op%"=="1" set ... & set ...` 中 `&` 会让后半句无论条件是否成立都执行，可能导致选错 XML；本版改为括号块 + `goto`。
+6. **新增仅卸载 Project / Visio** 的配置与入口。
 
-### 4. Cleanup
-When `setup.exe` returns control, the script deletes the temporary
-`setup.exe` and removes `%TEMP%\m365apps`, leaving no binaries behind. It then
-pauses so you can confirm that the Office installer started before closing
-the window.
+## 常见调整
 
-## 🗂️ Configuration files
+| 需求 | 改哪里 |
+| :--- | :--- |
+| 装 32 位 | XML 里 `OfficeClientEdition="64"` 改为 `32` |
+| 换语言 | XML 里 `Language ID="zh-cn"` 改为 `en-us` 等 |
+| 不装某个组件 | 在 `<Product>` 里加 `<ExcludeApp ID="Access" />`（可选 Outlook / Publisher / OneNote / Groove=OneDrive / Lync=Skype） |
+| 想看详细日志 | `Logging Level="Off"` 改为 `Standard`，并加 `Path="C:\ODTLog"` |
+| 换更新通道 | `Channel="Current"` 改为 `MonthlyEnterprise` / `SemiAnnual` / `Beta` |
+| 只装 Publisher 等典型工具 | 用 `—` 否，LTSC 产品默认含 Access / Publisher |
 
-The XML files under [XMLFiles/](XMLFiles/) follow the standard
-[Office Deployment Tool schema](https://learn.microsoft.com/en-us/deployoffice/office-deployment-tool-configuration-options).
-Edit them (or drop new ones in) to customise products, languages, channels or
-excluded apps, then point a new menu entry at the file.
+> 只装 Access / Publisher 这类单个应用不是 ODT 的能力范围（ODT 按产品卷部署），需要时请在已装 Office 上通过“应用”列表管理。
 
-## 🛠️ Requirements
+## 许可与致谢
 
-- Windows 10 1803 or later (for the built-in `curl.exe`) / Windows 11.
-- Administrator rights (the script self-elevates).
-- An active internet connection — `setup.exe` and the Office payload are both
-  downloaded from Microsoft.
+MIT License，见 [LICENSE](LICENSE)。
 
-<!-- footer -->
----
+- 原始代码与文档：© ivancarlosti（[原仓库](https://github.com/ivancarlosti/m365apps)）
+- 中文定制部分：© MWnv1
 
-## 🧑‍💻 Consulting and technical support
-* For personal support and queries, please submit a new issue to have it addressed.
-* For commercial related questions, please [**contact me**][ivancarlos] for consulting costs.
-
-[cc]: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-code-of-conduct-to-your-project
-[contributing]: https://docs.github.com/en/articles/setting-guidelines-for-repository-contributors
-[security]: https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository
-[support]: https://docs.github.com/en/articles/adding-support-resources-to-your-project
-[it]: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
-[prt]: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository
-[funding]: https://docs.github.com/en/articles/displaying-a-sponsor-button-in-your-repository
-[ivancarlos]: https://ivancarlos.me
+按 MIT 要求，原版权声明与许可声明已保留。
