@@ -1,3 +1,7 @@
+**[⬇️ 直接下载 ZIP](https://github.com/MWnv1/m365apps/archive/refs/heads/main.zip)**　·　**[打开仓库主页](https://github.com/MWnv1/m365apps)**　·　解压后右键 `office-odt-cn.bat`，选“以管理员身份运行”
+
+---
+
 # Office ODT 安装器（简体中文）
 
 > 本仓库是 [ivancarlosti/m365apps](https://github.com/ivancarlosti/m365apps) 的 fork，做了简体中文与国内使用场景的改造。上游采用 MIT 许可，原版权归 ivancarlosti。
@@ -52,7 +56,7 @@
 
 ## 用法
 
-1. 下载本仓库（`Code` → `Download ZIP`）或直接克隆。
+1. 点顶部链接下载 ZIP，或 `git clone https://github.com/MWnv1/m365apps.git`。
 2. 右键 `office-odt-cn.bat` → **以管理员身份运行**（忘了也会自动弹 UAC）。
 3. 按菜单选一项。安装前请先关掉所有 Office 程序。
 
@@ -97,7 +101,6 @@ LICENSE                      MIT
 | 不装某个组件 | 在 `<Product>` 里加 `<ExcludeApp ID="Access" />`（可选 Outlook / Publisher / OneNote / Groove=OneDrive / Lync=Skype） |
 | 想看详细日志 | `Logging Level="Off"` 改为 `Standard`，并加 `Path="C:\ODTLog"` |
 | 换更新通道 | `Channel="Current"` 改为 `MonthlyEnterprise` / `SemiAnnual` / `Beta` |
-| 只装 Publisher 等典型工具 | 用 `—` 否，LTSC 产品默认含 Access / Publisher |
 
 > 只装 Access / Publisher 这类单个应用不是 ODT 的能力范围（ODT 按产品卷部署），需要时请在已装 Office 上通过“应用”列表管理。
 
